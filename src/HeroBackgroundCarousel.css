@@ -1,0 +1,175 @@
+.hero-carousel__background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #07110c;
+}
+
+.hero-carousel__camera {
+  position: absolute;
+  inset: -1%;
+}
+
+.hero-carousel__slide,
+.hero-carousel__slide picture,
+.hero-carousel__slide img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel__slide img {
+  object-fit: cover;
+  object-position: var(--hero-image-position);
+  transform-origin: var(--hero-zoom-x, 76%) 55%;
+}
+
+.hero-carousel__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #07120df5 0%, #07120de8 28%, #07120db3 44%, #07120d26 64%, transparent 85%),
+    linear-gradient(0deg, #07110c 0%, transparent 17%),
+    linear-gradient(180deg, #07110c70 0%, transparent 18%);
+}
+
+.hero-carousel__controls {
+  position: absolute;
+  z-index: 2;
+  right: 5%;
+  bottom: 79px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #edf6eb;
+}
+
+.hero-carousel__readout {
+  display: grid;
+  gap: 5px;
+  min-width: 128px;
+  text-align: right;
+  text-shadow: 0 1px 10px #000;
+}
+
+.hero-carousel__count {
+  color: #b7fa76;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .16em;
+}
+
+.hero-carousel__model {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.hero-carousel__buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.hero-carousel__buttons button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #b7fa7645;
+  border-radius: 50%;
+  color: #e9f5e6;
+  background: #07110cd9;
+  transition: color .2s, border-color .2s, background-color .2s;
+}
+
+.hero-carousel__buttons button:hover {
+  color: #b7fa76;
+  border-color: #b7fa76;
+  background: #12271bed;
+}
+
+.hero-carousel__buttons button:focus-visible {
+  outline: 2px solid #b7fa76;
+  outline-offset: 4px;
+}
+
+.hero-carousel__buttons button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.hero-carousel__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 1101px) {
+  .hero-carousel__camera {
+    inset: -1% -1% auto auto;
+    width: auto;
+    height: 102%;
+    max-width: 102%;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .hero-carousel__slide img {
+    object-position: right bottom;
+    transform-origin: var(--hero-zoom-x, 82%) 76%;
+  }
+
+  .hero-carousel__shade {
+    background:
+      linear-gradient(90deg, #07120df5 0%, #07120de6 27%, #07120d59 53%, transparent 75%),
+      linear-gradient(0deg, #07110c 0%, transparent 13%);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-carousel__slide img {
+    object-position: right bottom;
+    transform-origin: var(--hero-zoom-x, 80%) 78%;
+  }
+
+  .hero-carousel__shade {
+    background:
+      linear-gradient(90deg, #07120dd9 0%, #07120d8c 30%, #07120d1a 67%, transparent),
+      linear-gradient(180deg, #07110c40 0%, transparent 38%),
+      linear-gradient(0deg, #07110c 0%, transparent 12%);
+  }
+
+  .hero-carousel__controls {
+    right: 20px;
+    bottom: 0;
+    gap: 14px;
+  }
+
+  .hero-carousel__readout {
+    min-width: 128px;
+    gap: 3px;
+  }
+
+  .hero-carousel__buttons {
+    gap: 4px;
+  }
+
+  .hero-carousel__buttons button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel__buttons button {
+    transition: none;
+  }
+}
