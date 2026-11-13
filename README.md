@@ -1,436 +1,326 @@
-﻿# NCHAF — React 3D Experience
+# NCHAF — Une technologie. Trois façons de sécher.
 
-**Une technologie. Trois façons de sécher.**
+**Projet entrepreneurial de séchage intelligent, pensé pour les usages des ménages marocains.**
 
-NCHAF est une application web de présentation d’un projet entrepreneurial de séchage intelligent destiné aux usages des ménages marocains. Elle associe une landing page noire et verte, un carrousel cinématique, trois concepts 3D interactifs, une étude de marché exploratoire, des analyses stratégiques, un simulateur financier et un questionnaire de démonstration.
+NCHAF propose de repenser le séchage du linge à travers une gamme de trois concepts : **HOME**, une installation fixe pour la maison ; **GO**, un séchoir compact transportable en format valise ; et **CLASSIC+**, un étendoir traditionnel enrichi d’une assistance au séchage.
 
-Le projet est une **application frontend React**. Il présente des concepts et des hypothèses à valider : il ne pilote aucun appareil réel et ne dispose actuellement ni de backend, ni de base de données, ni de système de commande ou de paiement.
+L’idée centrale est d’associer une structure adaptée au logement, une circulation d’air assistée et, à terme, un contrôle par capteur d’humidité. Le projet cherche à déterminer si cette approche peut simplifier le quotidien à un prix acceptable pour les utilisateurs.
+
+La présentation actuelle permet de découvrir la gamme en 3D, de comprendre son positionnement, d’explorer des hypothèses économiques et de préparer une enquête terrain. **NCHAF est au stade du concept : les produits physiques, les performances, les coûts et la demande restent à valider.**
 
 ## Sommaire
 
-- [1. Présentation des trois modèles](#1-présentation-des-trois-modèles)
-- [2. Technologies](#2-technologies)
-- [3. Installation et démarrage](#3-installation-et-démarrage)
-- [4. Structure du projet](#4-structure-du-projet)
-- [5. Sections et parcours utilisateur](#5-sections-et-parcours-utilisateur)
-- [6. Hero et carrousel cinématique](#6-hero-et-carrousel-cinématique)
-- [7. Images et cadrages](#7-images-et-cadrages)
-- [8. Fonctionnement des modèles 3D](#8-fonctionnement-des-modèles-3d)
-- [9. Étude de marché et analyses](#9-étude-de-marché-et-analyses)
-- [10. Simulateur financier](#10-simulateur-financier)
-- [11. Questionnaire](#11-questionnaire)
-- [12. Design, responsive et accessibilité](#12-design-responsive-et-accessibilité)
-- [13. Guide de modification](#13-guide-de-modification)
-- [14. Build et déploiement](#14-build-et-déploiement)
-- [15. Vérification et dépannage](#15-vérification-et-dépannage)
-- [16. Limites et prochaines étapes](#16-limites-et-prochaines-étapes)
+1. [Le problème à résoudre](#1-le-problème-à-résoudre)
+2. [La vision et les objectifs](#2-la-vision-et-les-objectifs)
+3. [Le principe de la solution](#3-le-principe-de-la-solution)
+4. [Les trois modèles NCHAF](#4-les-trois-modèles-nchaf)
+5. [Les utilisateurs et leurs besoins](#5-les-utilisateurs-et-leurs-besoins)
+6. [La proposition de valeur](#6-la-proposition-de-valeur)
+7. [L’expérience de découverte du projet](#7-lexpérience-de-découverte-du-projet)
+8. [L’étude de marché envisagée](#8-létude-de-marché-envisagée)
+9. [Le positionnement et la concurrence](#9-le-positionnement-et-la-concurrence)
+10. [L’analyse stratégique](#10-lanalyse-stratégique)
+11. [Le modèle économique](#11-le-modèle-économique)
+12. [La commercialisation envisagée](#12-la-commercialisation-envisagée)
+13. [Les étapes de développement](#13-les-étapes-de-développement)
+14. [Les critères de réussite](#14-les-critères-de-réussite)
+15. [L’état actuel et l’ambition du projet](#15-létat-actuel-et-lambition-du-projet)
 
-## 1. Présentation des trois modèles
+## 1. Le problème à résoudre
 
-| Modèle | Concept présenté | Public envisagé |
-| --- | --- | --- |
-| **NCHAF HOME** | Séchoir fixe d’intérieur, structure stable, ventilation supérieure et contrôle d’humidité envisagé. | Familles et logements disposant d’un espace dédié au linge. |
-| **NCHAF GO** | Séchoir portable dont le socle est pensé pour se refermer en petite valise. | Étudiants, colocataires, petits logements et déplacements. |
-| **NCHAF CLASSIC+** | Étendoir pliable classique enrichi d’un module de ventilation et d’une commande intelligente. | Ménages recherchant un usage familier et un prix accessible. |
+Faire sécher son linge peut devenir contraignant lorsque le logement offre peu d’espace, que l’accès à un balcon ou à une terrasse est limité, ou que les conditions météorologiques rendent le séchage extérieur difficile.
 
-Les trois modèles partagent une direction visuelle : métal, tons sombres et accents verts. Les images du Hero et les scènes 3D sont deux représentations conceptuelles distinctes ; elles ne constituent pas des plans de fabrication identiques.
+NCHAF part de plusieurs difficultés possibles :
 
-Les dimensions, les performances, le bruit, l’alimentation, la stabilité et les coûts de chaque produit restent à confirmer par prototypage et essais.
+- **L’attente** : du linge qui reste longtemps sur l’étendoir peut compliquer l’organisation des lessives.
+- **L’encombrement** : une installation de séchage peut occuper une partie de la pièce de vie.
+- **Les conditions ambiantes** : l’humidité et une faible circulation de l’air peuvent rendre le séchage moins pratique.
+- **La mobilité** : les étudiants, colocataires ou personnes en déplacement peuvent avoir besoin d’une solution facile à ranger et à transporter.
+- **Le budget** : le prix d’achat et le coût d’utilisation peuvent limiter l’adoption d’un nouvel équipement.
 
-## 2. Technologies
+Ces difficultés constituent le point de départ de l’étude. Leur fréquence, leur intensité et leur importance selon les logements doivent être mesurées auprès des utilisateurs.
 
-Les versions ci-dessous sont les plages déclarées dans [package.json](package.json). Les versions exactes installées sont fixées par [package-lock.json](package-lock.json).
+## 2. La vision et les objectifs
 
-| Technologie | Version déclarée | Utilisation |
-| --- | --- | --- |
-| React / React DOM | `^18.3.1` | Composants, état de l’interface et rendu dans le navigateur. |
-| Vite | `^6.0.7` | Serveur de développement et compilation de production. |
-| Plugin React pour Vite | `^4.3.4` | Prise en charge de React dans Vite. |
-| Three.js | `^0.170.0` | Géométries, matériaux et scène 3D. |
-| React Three Fiber | `^8.17.10` | Intégration de Three.js avec React. |
-| React Three Drei | `^9.122.0` | Chargement GLB, contrôles de caméra, ombres et éclairage studio. |
-| Framer Motion | `^11.18.2` | Révélations au défilement, transitions et animations du Hero. |
-| Recharts | `^2.15.1` | Graphiques de répartition de l’échantillon visé. |
-| Lucide React | `^0.468.0` | Icônes de navigation et d’interface. |
-| CSS | Sans framework CSS | Mise en page, couleurs, typographie et responsive. |
+La vision de NCHAF est de proposer **un séchage domestique plus pratique, adapté aux usages et aux contraintes de chaque foyer**.
 
-Le code est écrit en JavaScript et JSX, avec des modules ES (`"type": "module"`). Aucun routeur n’est installé : la navigation se fait entre les ancres d’une page unique.
+Le projet poursuit cinq objectifs :
 
-## 3. Installation et démarrage
+1. Comprendre les difficultés de séchage réellement rencontrées au Maroc.
+2. Concevoir des solutions adaptées à plusieurs types de logement et de mode de vie.
+3. Évaluer l’intérêt d’une ventilation assistée et d’un fonctionnement piloté par l’humidité.
+4. Trouver un équilibre entre efficacité, simplicité, encombrement et prix.
+5. Identifier le modèle à développer en priorité à partir des résultats du terrain et des essais.
 
-### Prérequis
+La gamme constitue une vision d’ensemble. Le lancement des trois modèles en même temps n’est pas acquis : un premier produit pourrait être retenu, puis la gamme élargie progressivement.
 
-- Node.js et npm disponibles dans le terminal.
-- Un navigateur prenant en charge **WebGL 2** pour afficher les modèles 3D.
-- Un accès Internet pour installer les dépendances lorsqu’elles ne sont pas déjà en cache. Les polices Google Fonts sont également chargées depuis un service externe.
+## 3. Le principe de la solution
 
-La version de Vite installée lors de la vérification est **6.4.6**. Elle déclare la compatibilité Node.js suivante : `^18.0.0 || ^20.0.0 || >=22.0.0`. L’environnement utilisé pour le build disposait de **Node.js 24.11.1** et de **npm 11.6.2**.
+Le concept repose sur trois éléments complémentaires :
 
-Vérifier les outils installés :
-
-```bash
-node --version
-npm --version
-```
-
-### Installer les dépendances
-
-Ouvrir un terminal dans le dossier qui contient `package.json`, puis exécuter :
-
-```bash
-npm ci
-```
-
-`npm ci` utilise les versions du fichier de verrouillage. Pour ajouter ou mettre à jour volontairement une dépendance, utiliser les commandes npm adaptées et conserver les changements de `package-lock.json`.
-
-### Lancer le développement
-
-```bash
-npm run dev
-```
-
-Ouvrir l’adresse affichée par Vite, généralement `http://localhost:5173`. Si le port est occupé, utiliser l’autre adresse indiquée dans le terminal. Les modifications du code sont rechargées automatiquement pendant le développement.
-
-Pour choisir explicitement un port :
-
-```bash
-npm run dev -- --port 5174
-```
-
-Arrêter le serveur avec `Ctrl+C` dans son terminal.
-
-### Commandes disponibles
-
-| Commande | Résultat |
+| Élément | Rôle envisagé |
 | --- | --- |
-| `npm ci` | Installe les dépendances à partir du fichier de verrouillage. |
-| `npm run dev` | Lance Vite en développement. |
-| `npm run build` | Génère la version de production dans `dist/`. |
-| `npm run preview` | Sert localement le dernier build généré. |
-| `node --test tests/prototypes.test.mjs` | Vérifie le chargement et la préparation des trois GLB. |
+| **Une structure pour étendre le linge** | Répondre à un usage fixe, mobile ou traditionnel. |
+| **Un module de ventilation** | Favoriser la circulation de l’air autour du linge. |
+| **Un capteur et une commande intelligente** | Adapter le fonctionnement aux conditions d’humidité, selon une logique à définir et à tester. |
 
-Les scripts `dev` et `preview` utilisent `--host 0.0.0.0`. Aucun script npm `test` ou `lint` n’est défini. Aucune clé API ni variable d’environnement personnalisée n’est nécessaire au fonctionnement actuel.
+Dans l’usage envisagé, la personne installe le produit, étend son linge puis active l’assistance au séchage. Le système pourrait ensuite adapter la ventilation aux mesures du capteur.
 
-## 4. Structure du projet
+Le terme **« intelligent »** désigne ici cette possibilité d’adaptation et d’automatisation. Une application mobile, une connexion à Internet ou un pilotage à distance ne font pas partie des fonctionnalités actuellement présentées.
 
-```text
-NCHAF_React_Experience/
-├── public/
-│   ├── nchaf-concept.png             # Ancienne image de couverture, conservée
-│   ├── models/
-│   │   ├── nchaf-home.glb            # Prototype HOME fourni
-│   │   ├── nchaf-go.glb              # Prototype GO fourni
-│   │   └── nchaf-classic.glb         # Prototype CLASSIC+ fourni
-│   └── images/
-│       ├── nchaf-home.webp           # Rendu source HOME
-│       ├── nchaf-go.webp             # Rendu source GO
-│       ├── nchaf-classic.webp        # Rendu source CLASSIC+
-│       ├── nchaf-home-hero.webp      # HOME : desktop
-│       ├── nchaf-home-tablet.webp    # HOME : tablette
-│       ├── nchaf-home-mobile.webp    # HOME : mobile
-│       ├── nchaf-go-hero.webp        # GO : desktop
-│       ├── nchaf-go-tablet.webp      # GO : tablette
-│       ├── nchaf-go-mobile.webp      # GO : mobile
-│       ├── nchaf-classic-hero.webp   # CLASSIC+ : desktop
-│       ├── nchaf-classic-tablet.webp # CLASSIC+ : tablette
-│       └── nchaf-classic-mobile.webp # CLASSIC+ : mobile
-├── src/
-│   ├── main.jsx                     # Point d’entrée React et StrictMode
-│   ├── App.jsx                      # Sections, textes, données et interactions
-│   ├── Models.jsx                   # Chargement différé, erreurs et commandes 3D
-│   ├── Models.css                   # Styles responsive de la visionneuse
-│   ├── PrototypeScene.jsx           # Scène GLB, caméra et éclairage studio
-│   ├── prototypeModel.js            # Orientation, centrage et rotors des GLB
-│   ├── HeroBackgroundCarousel.jsx   # Carrousel réutilisable du Hero
-│   ├── HeroBackgroundCarousel.css   # Styles propres au carrousel
-│   └── style.css                    # Identité visuelle et styles généraux
-├── tests/prototypes.test.mjs        # Vérifications des modèles réels
-├── index.html                       # Métadonnées et préchargement du premier visuel
-├── package.json                     # Dépendances et commandes npm
-├── package-lock.json                # Versions exactes des dépendances
-├── vite.config.js                   # Configuration Vite, React et base relative
-└── README.md                        # Documentation du projet
-```
+Le gain de temps, la consommation électrique, le niveau sonore et les modalités d’arrêt restent à mesurer. La ventilation seule ne retire pas l’humidité de la pièce : les conditions d’aération du logement devront aussi être prises en compte lors des essais.
 
-Le dossier généré `dist/` contient la version de production. `node_modules/` contient les dépendances installées.
+## 4. Les trois modèles NCHAF
 
-## 5. Sections et parcours utilisateur
+### NCHAF HOME — Une installation fixe pour la maison
 
-Toutes les sections du site NCHAF sont conservées. L’intégration GLB remplace uniquement les anciennes géométries procédurales de la section produits.
+**L’idée :** disposer d’un espace de séchage permanent, intégré à l’organisation du logement.
 
-| Section | Ancre | Contenu |
-| --- | --- | --- |
-| Hero | `#top` | Présentation de la gamme, carrousel cinématique et liens vers les produits et l’étude. |
-| Nos prototypes 3D | `#produits` | HOME, GO et CLASSIC+, visionneuse interactive, positionnement, caractéristiques et public cible. |
-| Problématique | Sans ancre de navigation | Circulation de l’air, humidité et contraintes d’espace. |
-| Étude de marché | `#marche` | Indicateurs démographiques, six villes et graphiques des objectifs d’enquête. |
-| Analyses stratégiques | `#strategie` | Comparaison des produits, concurrence, PESTEL, SWOT et Porter. |
-| Business plan | `#business` | Simulateur financier, marketing mix et coûts à chiffrer. |
-| Enquête | `#enquete` | Questionnaire de démonstration et méthodologie exploratoire. |
-| Roadmap | `#roadmap` | Étapes de validation, conclusion et sources institutionnelles. |
-| Pied de page | Retour à `#top` | Rappel du caractère exploratoire du projet et retour en haut. |
+HOME est pensé pour les familles et les foyers disposant d’un coin buanderie ou d’un emplacement dédié au linge. Il associe une structure stable, un module de ventilation supérieur et un contrôle d’humidité envisagé.
 
-Une barre en haut de page indique la progression du défilement. Le composant `Reveal` anime l’apparition des blocs à leur entrée dans la zone visible. Le composant `Head` fournit les en-têtes communs aux sections.
+- **Usage principal :** les lessives régulières à domicile.
+- **Bénéfice recherché :** organiser le séchage autour d’un équipement installé durablement.
+- **Points à valider :** dimensions, capacité de linge, installation, stabilité, bruit, alimentation et circulation de l’air.
 
-## 6. Hero et carrousel cinématique
+### NCHAF GO — Un séchoir qui se transporte
 
-Le composant [HeroBackgroundCarousel.jsx](src/HeroBackgroundCarousel.jsx) remplace uniquement l’ancien arrière-plan du Hero. Les textes et les boutons restent définis dans `Hero`, dans `App.jsx`.
+**L’idée :** proposer une solution compacte dont le socle se referme en petite valise.
 
-### Comportement
+GO s’adresse aux étudiants, aux colocataires, aux personnes vivant dans de petits logements et aux utilisateurs qui ont besoin de déplacer ou de ranger facilement leur équipement. Le concept prévoit un format pliable, une poignée de transport et un module de ventilation compact.
 
-- Ordre de lecture : **HOME → GO → CLASSIC+ → HOME**, en boucle.
-- Passage automatique au modèle suivant toutes les **5 secondes** lorsque la lecture est active.
-- Fondu entre les images d’une durée de **1,2 seconde**.
-- Commandes précédente/suivante, lecture/pause et sélecteurs directs.
-- Navigation au clavier et informations accessibles sur le modèle affiché.
-- Gestion de la visibilité, des chargements, des erreurs d’image et de la préférence de mouvement réduit.
-- Présentation cinématique avec zoom et parallax, adaptée aux tailles d’écran.
+- **Usage principal :** les espaces temporaires, partagés ou limités.
+- **Bénéfice recherché :** déployer le séchoir au moment utile, puis le ranger ou le transporter.
+- **Points à valider :** poids, mécanisme de pliage, résistance, capacité, alimentation et éventuelle autonomie. Le caractère portable ne signifie pas qu’une batterie est déjà prévue ou validée.
 
-### Propriétés du composant
+### NCHAF CLASSIC+ — Le geste habituel, avec une assistance
 
-| Propriété | Valeur par défaut | Description |
-| --- | --- | --- |
-| `slides` | Les trois modèles NCHAF | Tableau des visuels et de leurs paramètres de cadrage. |
-| `interval` | `5000` | Temps entre les changements automatiques, en millisecondes. |
-| `transitionDuration` | `1.2` | Durée du fondu, en secondes. |
+**L’idée :** conserver la forme familière de l’étendoir tout en ajoutant un module de ventilation et une commande intelligente.
 
-Chaque entrée de `slides` peut définir `id`, `label`, `src`, `tabletSrc`, `mobileSrc`, `position` et `zoomOriginX`. Utiliser des identifiants uniques et des chemins correspondant à des fichiers réellement présents.
+CLASSIC+ vise les ménages attachés à la simplicité de l’étendoir traditionnel et attentifs au budget. Son positionnement recherche une amélioration de l’usage quotidien avec peu de changements dans les habitudes.
 
-Pour modifier l’ordre ou le cadrage par défaut, éditer `DEFAULT_SLIDES`. Les styles propres au carrousel sont isolés dans [HeroBackgroundCarousel.css](src/HeroBackgroundCarousel.css), avec des classes préfixées `hero-carousel__`.
+- **Usage principal :** le séchage domestique sur un étendoir pliable.
+- **Bénéfice recherché :** faciliter l’adoption grâce à un format déjà connu.
+- **Points à valider :** efficacité du module, rangement, solidité, sécurité et possibilité de proposer un prix accessible.
 
-## 7. Images et cadrages
+### Comparaison de la gamme
 
-Les images du Hero sont des rendus conceptuels de la gamme NCHAF fournis pour le projet. Les variantes WebP reprennent les rendus sources avec une composition adaptée à chaque format d’écran.
-
-| Variante | Largeur d’écran | Dimensions de l’image | Fichiers dans `public/images/` |
+| Critère | HOME | GO | CLASSIC+ |
 | --- | --- | --- | --- |
-| Desktop | Plus de 1 100 px | 1 920 × 1 080 | `nchaf-home-hero.webp`, `nchaf-go-hero.webp`, `nchaf-classic-hero.webp` |
-| Tablette | De 701 à 1 100 px | 1 100 × 1 000 | `nchaf-home-tablet.webp`, `nchaf-go-tablet.webp`, `nchaf-classic-tablet.webp` |
-| Mobile | Jusqu’à 700 px | 780 × 1 400 | `nchaf-home-mobile.webp`, `nchaf-go-mobile.webp`, `nchaf-classic-mobile.webp` |
+| Logique d’usage | Installation fixe | Mobilité et rangement | Usage traditionnel amélioré |
+| Public prioritaire | Familles avec un espace dédié | Étudiants, colocataires, petits logements | Ménages sensibles au budget |
+| Format envisagé | Structure domestique stable | Structure repliable en valise | Étendoir classique pliable |
+| Ventilation | Module supérieur | Module compact | Module intégré à l’étendoir |
+| Promesse à tester | Confort d’un espace organisé | Facilité de transport et de rangement | Simplicité et accessibilité |
+| Prix de vente | À déterminer | À déterminer | À déterminer |
+| Stade du produit | Concept à prototyper | Concept à prototyper | Concept à prototyper |
 
-Ces neuf variantes pèsent environ **28 à 86 Ko par fichier** dans la version actuelle. Les trois fichiers sources sans suffixe mesurent 1 672 × 941 px. L’ancien `public/nchaf-concept.png` est conservé, mais n’est plus utilisé comme arrière-plan du Hero.
+## 5. Les utilisateurs et leurs besoins
 
-Le navigateur choisit la bonne variante avec `<picture>` et `<source>`. L’image utilise `object-fit: cover`, avec un cadrage propre au modèle sur desktop et un alignement à droite et en bas sur les écrans plus étroits. La composition mobile place le produit plus bas pour dégager la zone du titre.
+La segmentation repose d’abord sur les usages du linge et les contraintes du logement.
 
-Les chemins du composant partent de `import.meta.env.BASE_URL`, afin de suivre la base de déploiement définie par Vite.
+| Profil envisagé | Besoin à explorer | Concept à évaluer |
+| --- | --- | --- |
+| Une famille avec des lessives fréquentes | Organiser un espace de séchage régulier et disponible | HOME |
+| Un étudiant ou un colocataire | Sécher du linge dans peu d’espace et ranger l’équipement facilement | GO |
+| Une personne qui change souvent de logement | Transporter et installer le produit simplement | GO |
+| Un ménage utilisant déjà un étendoir | Améliorer le séchage avec un usage familier et un budget maîtrisé | CLASSIC+ |
 
-Pour remplacer les images :
+Ces profils sont des hypothèses de travail. Une même personne peut être intéressée par plusieurs modèles. L’enquête devra préciser les besoins selon le type de logement, la taille du foyer, les habitudes de lessive et le budget.
 
-1. Préparer les versions desktop, tablette et mobile du modèle concerné.
-2. Remplacer les fichiers correspondants, ou modifier leurs chemins dans `DEFAULT_SLIDES`.
-3. Si les noms des images HOME changent, mettre aussi à jour les trois liens de préchargement dans `index.html`.
-4. Contrôler le cadrage avec le zoom actif, la lisibilité du titre et l’absence de coupe des parties importantes.
-5. Refaire le build pour mettre les images de production à jour.
+## 6. La proposition de valeur
 
-Il n’existe actuellement pas de script de régénération des variantes d’images dans le dépôt.
+La proposition de valeur de NCHAF est la suivante : **offrir une assistance au séchage dans un format qui correspond à la vie de l’utilisateur**.
 
-## 8. Fonctionnement des modèles 3D
+La différenciation recherchée repose sur :
 
-La section **« Nos prototypes 3D »** charge les trois fichiers GLB fournis, copiés sans modification dans `public/models/` : `nchaf-home.glb`, `nchaf-go.glb` et `nchaf-classic.glb`. Ils sont présentés comme des **prototypes 3D conceptuels**, dont les dimensions et performances restent à valider. Les chemins suivent `import.meta.env.BASE_URL`, y compris pour un hébergement en sous-dossier.
+- Une gamme organisée autour de trois usages identifiables.
+- Une circulation d’air assistée dont l’intérêt sera mesuré sur des essais comparatifs.
+- Un fonctionnement potentiellement adapté à l’humidité.
+- Une attention portée à la facilité d’installation, de rangement et d’entretien.
+- Une démarche de conception guidée par les retours des utilisateurs marocains.
 
-| Composant | Rôle |
+Une consommation réduite, un séchage plus rapide ou un meilleur rapport qualité-prix sont des objectifs à évaluer. Le projet ne dispose pas encore de mesures permettant de les présenter comme des avantages démontrés.
+
+## 7. L’expérience de découverte du projet
+
+La présentation numérique de NCHAF permet de comprendre l’idée avant la réalisation des produits physiques. Son identité visuelle associe des tons sombres, des accents verts et des rendus de la gamme pour mettre en avant l’univers de la marque.
+
+Le visiteur suit un parcours en sept étapes :
+
+1. **Découvrir la marque et sa promesse** à travers les visuels des trois modèles.
+2. **Explorer les concepts en 3D** : choisir HOME, GO ou CLASSIC+, faire tourner le modèle, zoomer et observer l’animation des ventilateurs.
+3. **Comprendre le problème étudié** : temps de séchage, humidité, circulation de l’air et contraintes d’espace.
+4. **Consulter le projet d’étude de marché** et sa répartition sur six villes.
+5. **Comparer les positionnements** et parcourir les analyses stratégiques.
+6. **Faire varier des hypothèses économiques** dans un simulateur de chiffre d’affaires et de marge brute.
+7. **Essayer un questionnaire de démonstration** et découvrir les étapes de développement envisagées.
+
+Les vues 3D et les animations servent à expliquer le concept. Elles ne prouvent pas le fonctionnement ou la faisabilité d’un appareil physique. Le questionnaire actuel est une démonstration : ses réponses ne sont ni envoyées ni enregistrées.
+
+## 8. L’étude de marché envisagée
+
+### Objectif de l’enquête
+
+L’étude doit déterminer **qui rencontre un besoin suffisamment important, quel modèle paraît pertinent et quel prix pourrait être accepté**.
+
+Le périmètre proposé couvre six villes marocaines. Le contexte démographique présenté dans le projet aide à situer l’étude ; il ne permet pas de déduire le nombre de clients potentiels de NCHAF.
+
+### Répartition prévue
+
+| Ville | Questionnaires visés | Angle d’exploration |
+| --- | ---: | --- |
+| Casablanca | 75 | Diversité des ménages et logements urbains |
+| Rabat | 50 | Contraintes d’espace et pratiques domestiques |
+| Tanger | 50 | Perception de l’humidité côtière |
+| Marrakech | 50 | Choix entre séchage intérieur et extérieur selon la saison |
+| Fès | 40 | Habitudes de séchage selon les saisons |
+| Agadir | 35 | Usage du balcon et sensibilité au prix |
+| **Total** | **300** | **Exploration de besoins et de profils variés** |
+
+La méthodologie prévoit également **12 entretiens** pour approfondir les réponses et comprendre les objections. Ces nombres sont des objectifs de collecte. Aucune enquête réalisée ni représentativité statistique n’est revendiquée.
+
+### Questions à explorer
+
+Le questionnaire de démonstration aborde cinq thèmes :
+
+- La méthode de séchage utilisée actuellement.
+- La fréquence des difficultés rencontrées.
+- Le principal problème : attente, espace, humidité, odeurs ou météo.
+- L’intérêt pour HOME, GO, CLASSIC+ ou aucun des modèles.
+- Le prix maximum envisagé.
+
+Pour l’étude réelle, il faudra aussi préciser le type de logement, la taille du foyer et les attentes propres à chaque modèle. Les entretiens pourront approfondir le bruit acceptable, la consommation, le rangement, la confiance dans le produit et les raisons de ne pas acheter.
+
+### Résultats attendus
+
+L’étude devra aider à choisir un segment prioritaire, un premier modèle à développer, les fonctionnalités indispensables et une fourchette de prix à confronter aux coûts réels. L’intérêt déclaré devra ensuite être confronté aux essais du produit et à la décision d’achat.
+
+## 9. Le positionnement et la concurrence
+
+NCHAF cherche sa place parmi les solutions déjà utilisées pour sécher le linge.
+
+| Alternative | Atout à prendre en compte | Question pour NCHAF |
+| --- | --- | --- |
+| Étendoir classique | Simplicité et absence de consommation électrique | L’assistance apporte-t-elle un gain suffisant pour justifier son prix ? |
+| Balcon ou terrasse | Utilisation d’un espace extérieur lorsqu’il est disponible | Dans quelles situations une solution intérieure devient-elle utile ? |
+| Étendoir chauffant | Assistance électrique au séchage | Comment comparer efficacité, consommation, sécurité et prix ? |
+| Sèche-linge | Séchage mécanisé | Quels besoins peuvent être couverts par un autre format et un autre budget ? |
+
+Le positionnement final dépendra des prix réellement pratiqués au Maroc, des performances mesurées et des préférences des utilisateurs. La fabrication locale et les partenariats de distribution sont des pistes à explorer.
+
+## 10. L’analyse stratégique
+
+### SWOT — Forces, faiblesses, opportunités et menaces
+
+| Dimension | Lecture du projet |
 | --- | --- |
-| `ModelViewer` (`Models.jsx`) | Chargement à l’approche de la section, transitions en fondu, contrôles et erreurs isolées du reste du site. |
-| `PrototypeScene` | React Three Fiber, `useGLTF`, `CameraControls`, ombres et éclairage studio avec `Environment` et `Lightformer`, sans HDR externe. |
-| `preparePrototype` | Clonage, correction de l’axe vertical Z, centrage, cadrage commun et regroupement des pales autour de leurs moyeux. Les géométries et couleurs originales sont conservées. |
+| **Forces envisagées** | Trois usages complémentaires, gamme lisible et possibilité d’automatisation. |
+| **Faiblesses actuelles** | Absence de prototype physique validé, coûts inconnus et service après-vente à organiser. |
+| **Opportunités à explorer** | Besoins domestiques en milieu urbain, vente en ligne, distribution et fabrication locale. |
+| **Menaces** | Alternatives économiques, concurrence des importations, variation du coût des composants et efficacité encore à démontrer. |
 
-Les sélecteurs **HOME**, **GO** et **CLASSIC+** changent le modèle et sa fiche descriptive avec un fondu. Glisser à la souris ou avec un doigt permet une rotation à 360° ; la molette ou le pincement à deux doigts permet de zoomer. Les boutons **Zoomer**, **Dézoomer** et **Recentrer le modèle** restent accessibles au clavier. Lorsque la vue a le focus, les flèches gauche/droite tournent la caméra, `+`/`−` règlent le zoom et la touche Début recentre le modèle.
+### PESTEL — L’environnement du projet
 
-Le bouton d’arrêt des ventilateurs agit sur les pales des modèles importés. La préférence de mouvement réduit coupe cette animation et les transitions de la visionneuse. Le cadrage s’adapte au format de l’écran, la densité de pixels est limitée et le rendu s’arrête lorsque la vue sort de l’écran.
+| Dimension | Sujet à étudier |
+| --- | --- |
+| **Politique** | Dispositifs de soutien à l’entrepreneuriat et à l’innovation, selon l’éligibilité du projet. |
+| **Économique** | Pouvoir d’achat, coûts de production, transport, énergie et prix des alternatives. |
+| **Sociale** | Habitudes de lessive, composition du foyer, logement et acceptation du produit. |
+| **Technologique** | Fiabilité des ventilateurs, capteurs, commandes et mécanismes de pliage. |
+| **Environnementale** | Consommation réelle, durabilité, choix des matériaux et possibilité de réparation. |
+| **Légale** | Exigences applicables à la sécurité, à la conformité, à la garantie et à l’information du consommateur. |
 
-Un indicateur affiche l’avancement du chargement des ressources. En cas d’absence de WebGL 2, de fichier manquant ou de perte du contexte graphique, un message et un bouton de nouvelle tentative apparaissent ; les fiches produits et toutes les autres sections restent accessibles. Les modèles sont chargés à la demande puis mis en cache.
+### Les cinq forces de Porter
 
-Le modèle sélectionné dans cette section est **indépendant** de l’image affichée dans le Hero et du modèle choisi dans le simulateur financier.
+- **Rivalité entre les offres :** plusieurs solutions de séchage répondent déjà à une partie du besoin.
+- **Pouvoir des clients :** les utilisateurs peuvent comparer les prix ou conserver leur équipement actuel.
+- **Produits de substitution :** étendoir, extérieur, étendoir chauffant et sèche-linge constituent des alternatives.
+- **Nouveaux entrants :** la différenciation devra s’appuyer sur une utilité démontrée, la qualité et le service.
+- **Pouvoir des fournisseurs :** la disponibilité, le prix et la qualité des composants restent à évaluer.
 
-## 9. Étude de marché et analyses
+Ces analyses structurent la réflexion. Elles devront évoluer avec les résultats de l’enquête, les devis et les essais.
 
-Les données et les textes sont définis dans `App.jsx`, sans chargement depuis une API.
+## 11. Le modèle économique
 
-### Indicateurs présentés
+### Origine des revenus envisagée
 
-Le site affiche **9,28 millions de ménages** et **62,8 % d’urbanisation**, attribués dans son contenu au RGPH 2024. Ces indicateurs servent de contexte démographique ; ils ne mesurent pas une clientèle NCHAF ni une demande déjà validée. Ce README décrit les valeurs présentes dans le code, sans constituer une nouvelle vérification de leur source.
+Le scénario principal repose sur **la vente des équipements NCHAF**. Chaque modèle devra disposer de son propre coût de revient, de son prix et de ses conditions de distribution.
 
-### Objectifs de collecte
+Le projet n’établit pas encore de prix définitif, de prévision de ventes validée ou de rentabilité démontrée.
 
-| Ville | Réponses visées |
+### Les coûts à chiffrer
+
+Le coût du produit devra intégrer la structure, le module de ventilation, le capteur, l’électronique de commande, l’alimentation, l’assemblage, l’emballage et le contrôle qualité.
+
+L’évaluation économique devra aussi prendre en compte le développement, les essais, la conformité, le transport, le stockage, les commissions de distribution, le marketing, les retours, la garantie et le service après-vente.
+
+### Le rôle du simulateur
+
+Le simulateur permet de modifier le coût unitaire supposé, le prix de vente supposé et la quantité vendue pour observer l’effet sur le chiffre d’affaires et la marge brute.
+
+| Hypothèse illustrative de départ | Valeur |
 | --- | ---: |
-| Casablanca | 75 |
-| Rabat | 50 |
-| Tanger | 50 |
-| Marrakech | 50 |
-| Fès | 40 |
-| Agadir | 35 |
-| **Total** | **300** |
-
-Les graphiques en barres et en anneau représentent cette même répartition cible. Ce sont des **objectifs de collecte**, pas des réponses déjà recueillies, des parts de marché ou une répartition représentative de la population.
-
-La méthodologie prévoit aussi **12 entretiens**. Il s’agit d’une démarche exploratoire à réaliser sur le terrain.
-
-### Analyses incluses
-
-- Comparaison des usages, des publics, de la ventilation et de l’encombrement des trois modèles.
-- Alternatives : étendoir classique, étendoir chauffant et sèche-linge.
-- **PESTEL** : politique, économie, société, technologie, environnement et cadre légal.
-- **SWOT** : forces, faiblesses, opportunités et menaces.
-- **Porter** : rivalité, clients, substitution, nouveaux entrants et fournisseurs.
-- **Marketing mix des 4P** : produit, prix, distribution et promotion.
-
-Les appréciations sont exploratoires. Les liens institutionnels déjà présents dans la page sont le [HCP](https://www.hcp.ma/), la [protection du consommateur](https://www.mcinet.gov.ma/fr/content/protection-du-consommateur) et [IMANOR](https://www.imanor.gov.ma/).
-
-## 10. Simulateur financier
-
-Le composant `Business` dans `App.jsx` contient trois hypothèses modifiables : coût unitaire, prix de vente et quantité vendue. Les montants sont affichés en dirhams, avec le format français.
-
-### Valeurs initiales
-
-| Paramètre | Valeur initiale |
-| --- | ---: |
-| Modèle sélectionné | CLASSIC+ |
 | Coût unitaire supposé | 450 DH |
 | Prix de vente supposé | 799 DH |
 | Quantité du scénario | 100 unités |
+| Chiffre d’affaires correspondant | 79 900 DH |
+| Marge brute correspondante | 34 900 DH |
+| Part de marge brute dans les ventes | Environ 43,7 % |
 
-### Calculs
+Cet exemple illustre une relation entre prix, coût et volume. **La marge brute affichée n’est pas un bénéfice net** : elle exclut notamment les frais fixes, les taxes, le marketing, les retours, le transport, les commissions et le service après-vente.
 
-```text
-Chiffre d’affaires = prix de vente × quantité
-Marge brute = (prix de vente − coût unitaire) × quantité
-Taux de marge sur vente = ((prix de vente − coût unitaire) / prix de vente) × 100
-```
+La sélection d’un modèle dans le simulateur sert à situer le scénario. Les hypothèses ne proviennent pas de devis spécifiques à HOME, GO ou CLASSIC+.
 
-Avec les valeurs initiales, le simulateur affiche **79 900 DH** de chiffre d’affaires, **34 900 DH** de marge brute et environ **43,7 %** de marge sur vente. Si le coût dépasse le prix, la marge devient négative.
+## 12. La commercialisation envisagée
 
-Changer de modèle sert à contextualiser le scénario ; cela ne remplace pas automatiquement les hypothèses par un devis propre au produit. Les valeurs restent modifiables par l’utilisateur.
+La stratégie commerciale s’organise autour des quatre dimensions du marketing mix :
 
-Les frais fixes, taxes, marketing, retours, transport, commissions et SAV sont exclus de ces calculs. Le résultat représente une marge brute hypothétique, pas un bénéfice net validé. Les réglages ne sont pas enregistrés après rechargement de la page.
-
-## 11. Questionnaire
-
-Le composant `Survey` propose cinq questions :
-
-1. Méthode principale de séchage.
-2. Fréquence des difficultés rencontrées.
-3. Problème le plus gênant.
-4. Modèle NCHAF préféré.
-5. Prix maximum envisagé.
-
-Cliquer sur une réponse fait avancer la démonstration et sa barre de progression. Après la cinquième réponse, un écran de fin permet de recommencer.
-
-Les réponses sont conservées uniquement dans l’état React de la page ouverte. Elles ne sont envoyées à aucun serveur, ne sont pas sauvegardées dans une base de données et ne sont pas stockées dans `localStorage`. Un rechargement ou un redémarrage du questionnaire les efface.
-
-Pour mener une vraie enquête, il faudra ajouter un formulaire de collecte, une destination de stockage et le traitement des résultats. Ces fonctions ne sont pas encore implémentées.
-
-## 12. Design, responsive et accessibilité
-
-Le site conserve son identité noire et verte, ses accents vert citron, ses dégradés, ses panneaux et ses typographies. Les styles généraux sont dans `src/style.css`, ceux du Hero dans `src/HeroBackgroundCarousel.css`, et les ajouts de la visionneuse dans `src/Models.css`.
-
-La mise en page utilise Flexbox, Grid et des tailles de caractères fluides. Les règles générales adaptent notamment le showroom et les grilles autour de 1 050 px, puis la navigation et les sections à 700 px. Le Hero possède ses propres variantes d’images aux seuils de 700 et 1 100 px.
-
-La visionneuse conserve ses trois sélecteurs sur mobile, place les commandes de zoom sous le modèle et adapte la caméra au rapport largeur/hauteur de sa zone de rendu. Les commandes tactiles restent contenues dans le canvas ; le reste de la page conserve son défilement normal.
-
-Les commandes du carrousel et de la visionneuse utilisent des boutons natifs accessibles au clavier. Les autres contrôles comprennent des liens d’ancre, des champs de formulaire et des boutons de sélection. Cela ne constitue pas une certification d’accessibilité de l’ensemble du site : un audit complet, notamment des scènes 3D et des graphiques, reste à effectuer.
-
-## 13. Guide de modification
-
-| Modification souhaitée | Fichier ou emplacement |
+| Dimension | Orientation envisagée |
 | --- | --- |
-| Textes du Hero, sections et navigation | Composants correspondants dans `src/App.jsx`. |
-| Noms, descriptions, publics et caractéristiques des produits | Tableau `products` dans `src/App.jsx`. |
-| Villes et répartition de la collecte | Tableau `cities` dans `src/App.jsx`. |
-| Tableau comparatif, SWOT et PESTEL | Tableaux `comparison`, `swot` et `pestel` dans `src/App.jsx`. |
-| Questions et choix de réponses | Tableau `questions` dans `src/App.jsx`. |
-| Hypothèses, curseurs et calculs financiers | Composant `Business` dans `src/App.jsx`. |
-| Fichiers des prototypes | `public/models/nchaf-home.glb`, `nchaf-go.glb`, `nchaf-classic.glb`. |
-| Orientation et ventilateurs des prototypes | `src/prototypeModel.js` (axe Z vertical pour les fichiers actuels). |
-| Éclairage studio et caméra | `src/PrototypeScene.jsx`. |
-| Chargement, erreurs et commandes 3D | `src/Models.jsx` et `src/Models.css`. |
-| Images, ordre, cadence et logique du carrousel | `src/HeroBackgroundCarousel.jsx`. |
-| Dégradés, placement des commandes et cadrage du Hero | `src/HeroBackgroundCarousel.css`. |
-| Couleurs, polices, boutons et layout général | `src/style.css`. |
-| Titre de l’onglet, description et préchargement HOME | `index.html`. |
-| Base de déploiement et configuration du build | `vite.config.js`. |
+| **Produit** | Une gamme répondant à trois usages, avec un modèle prioritaire à choisir après validation. |
+| **Prix** | Un montant fondé sur les coûts réels, les alternatives disponibles et la disposition à payer. |
+| **Distribution** | Vente en ligne, magasins partenaires et démonstrations pilotes. |
+| **Promotion** | Présentations du produit, vidéos d’essais mesurés et retours d’utilisateurs vérifiés. |
 
-Certains nombres sont encore écrits directement dans les composants. Par exemple, modifier le nombre de questions nécessite aussi d’adapter les compteurs et la logique qui utilisent actuellement cinq réponses. Si la cible d’enquête change, vérifier le total des villes, les libellés des graphiques et les indicateurs affichés.
+Le lancement pilote devra permettre de comprendre les conditions d’achat et d’utilisation avant une diffusion plus large. Les arguments commerciaux devront s’appuyer sur les performances effectivement observées.
 
-Pour une modification limitée au fond du Hero, intervenir dans les fichiers du carrousel et les images correspondantes. Les modèles 3D, les données de marché et les calculs du simulateur ont une implémentation séparée.
+## 13. Les étapes de développement
 
-## 14. Build et déploiement
+| Étape | Travail prévu | Résultat recherché |
+| --- | --- | --- |
+| **1. Étude terrain** | Réaliser les questionnaires, les entretiens et la comparaison des offres disponibles. | Identifier les besoins, les objections et les segments à privilégier. |
+| **2. Prototypage** | Concevoir les versions physiques et tester les principes de ventilation, de structure et de commande. | Vérifier la faisabilité et mesurer les performances. |
+| **3. Tests utilisateurs** | Faire essayer les concepts et observer l’installation, le séchage, le rangement et l’entretien. | Améliorer l’ergonomie et confirmer l’utilité perçue. |
+| **4. Pré-série et devis** | Chiffrer la fabrication, préparer la conformité, la garantie et le service après-vente. | Définir une offre réalisable et un coût complet. |
+| **5. Lancement pilote** | Retenir le modèle le mieux validé et le proposer à petite échelle. | Observer les ventes, l’usage réel, la satisfaction et les difficultés rencontrées. |
 
-### Générer le site
+L’élargissement de la gamme dépendra des résultats de ces étapes. Aucun calendrier de production ou de lancement commercial n’est confirmé.
 
-```bash
-npm run build
-```
+## 14. Les critères de réussite
 
-Vite produit `dist/index.html`, les fichiers JavaScript/CSS compilés dans `dist/assets/` et une copie des fichiers publics, dont `dist/images/` et `dist/models/`. La scène Three.js est placée dans un module chargé à la demande.
+Le projet sera évalué sur des résultats concrets :
 
-### Vérifier la version compilée
+- **Besoin utilisateur :** un problème fréquent et suffisamment important pour motiver un achat.
+- **Efficacité :** des essais comparatifs de temps de séchage dans des conditions documentées.
+- **Confort :** un niveau sonore, un encombrement et une manipulation acceptables.
+- **Usage :** une installation, un rangement et un entretien simples.
+- **Qualité :** une structure stable, des composants fiables et une utilisation sûre.
+- **Économie :** un prix accepté compatible avec le coût complet et le service proposé.
+- **Durabilité :** une consommation mesurée et une conception dont l’entretien et la réparation sont étudiés.
 
-```bash
-npm run preview
-```
+Les seuils de réussite devront être définis avant les essais. Aucune durée de séchage, économie d’énergie ou capacité de linge n’est annoncée comme acquise à ce stade.
 
-Ouvrir l’adresse affichée, généralement `http://localhost:4173`. Cette commande prévisualise le contenu de `dist/` ; elle ne reconstruit pas les sources modifiées. Relancer le build après une modification.
+## 15. L’état actuel et l’ambition du projet
 
-### Mettre en ligne
-
-Le site peut être servi par un hébergement de fichiers statiques. La commande de compilation est `npm run build` et le dossier à publier est **`dist/`**. Aucun serveur applicatif Node.js n’est requis pour servir le résultat compilé.
-
-Dans `vite.config.js`, `base: './'` génère des références relatives pour faciliter l’hébergement dans un sous-dossier. Le carrousel et les modèles GLB utilisent cette même base pour leurs fichiers. Vérifier les chemins et les ancres à l’adresse réelle après publication.
-
-Ne pas ouvrir simplement `index.html` par double-clic dans l’explorateur : utiliser le serveur de développement, le serveur de prévisualisation ou l’hébergement statique.
-
-Aucune procédure de déploiement automatique n’est actuellement configurée dans le projet. Le fichier `.gitignore` existant exclut `node_modules/`. Le contenu de `dist/` est généré à partir des sources.
-
-## 15. Vérification et dépannage
-
-### État des vérifications
-
-Le build de production a été exécuté avec succès après l’intégration du carrousel puis des trois GLB. Les trois fichiers servis ont été comparés aux originaux. Les contenus de `App.jsx` situés hors de la section produits ont été comparés à la version précédant l’intégration et sont inchangés.
-
-Les tests `node --test tests/prototypes.test.mjs` utilisent les fichiers GLB réels pour vérifier leur chargement, leur orientation, leur centrage, leurs couleurs, les rotors et la préservation des scènes mises en cache.
-
-Des contrôles ponctuels de logique effectués lors du travail antérieur sur le Hero ont couvert la boucle des trois modèles, les commandes, la navigation au clavier, la visibilité de l’onglet, la préférence de mouvement réduit, le préchargement responsive, la pause pendant un chargement et les erreurs d’image.
-
-Les cadrages des produits du Hero ont été vérifiés par calcul sur douze formats d’écran, de 320 à 2 560 px, avec les amplitudes maximales de zoom et de parallax. Cela ne remplace pas une inspection visuelle complète : le navigateur de test est indisponible dans cette session. Les interactions WebGL sur ordinateur et mobile restent à contrôler visuellement dans un navigateur compatible.
-
-### Contrôle manuel après une modification
-
-- Vérifier le titre, les boutons, le menu mobile et les liens d’ancre.
-- Observer les trois images du Hero, leurs cadrages et le fondu.
-- Tester précédente, suivante, pause, lecture et navigation au clavier.
-- Masquer puis réafficher l’onglet ; tester la préférence de mouvement réduit.
-- Sélectionner chaque modèle 3D, faire tourner la vue et arrêter les ventilateurs.
-- Tester le zoom, le pincement tactile, le recentrage et les changements rapides de prototype.
-- Désactiver WebGL ou bloquer un GLB pour contrôler le message d’erreur et la nouvelle tentative.
-- Modifier le coût, le prix et la quantité ; contrôler les résultats du simulateur.
-- Terminer puis recommencer le questionnaire.
-- Exécuter `npm run build`, puis vérifier le résultat avec `npm run preview`.
-
-### Problèmes courants
-
-| Problème | Vérification ou action |
+| Déjà présenté | Encore à construire ou à valider |
 | --- | --- |
-| `node` ou `npm` introuvable | Vérifier l’installation de Node.js et la disponibilité des commandes dans le terminal. |
-| Dépendances manquantes | Exécuter `npm ci` depuis le dossier contenant `package.json`. |
-| Port déjà utilisé | Utiliser l’adresse suivante proposée par Vite ou préciser `--port`. |
-| Image absente | Vérifier le nom exact du fichier, la casse, les chemins du carrousel et les liens de préchargement. |
-| Le Hero ne défile plus | Vérifier pause/lecture, la préférence de mouvement réduit, le focus clavier et la visibilité du Hero. |
-| Modèle 3D absent | Vérifier WebGL 2, les réglages graphiques et la disponibilité des URL `models/nchaf-*.glb`. Le message de la visionneuse permet de réessayer. |
-| Typographie différente | Vérifier le chargement des polices Google Fonts et la connexion Internet. |
-| Ancienne version dans la prévisualisation | Relancer `npm run build` avant `npm run preview`. |
-| Avertissement de taille JavaScript au build | Le bundle principal avec Recharts et le module 3D différé dépassent le seuil d’avertissement de Vite. Le build aboutit ; la scène 3D n’est demandée qu’à l’approche de la section. |
+| Une identité de marque et une vision de gamme | La demande réelle et la décision d’achat |
+| Trois représentations 3D conceptuelles | Des prototypes physiques fonctionnels |
+| Une première segmentation et des analyses stratégiques | Les performances, les dimensions et la sécurité |
+| Une méthodologie d’enquête sur six villes | Une collecte terrain et l’analyse de ses résultats |
+| Un simulateur économique illustratif | Des devis, des prix et une économie de produit validés |
+| Une présentation interactive du projet | La fabrication, la distribution, la garantie et le service après-vente |
 
-## 16. Limites et prochaines étapes
+La présentation actuelle ne permet pas de commander ou de payer un équipement et ne pilote aucun appareil réel.
 
-Cette version permet de présenter le projet et d’explorer ses scénarios. Elle ne comprend pas de compte utilisateur, de boutique, de panier, de connexion à un séchoir, de collecte persistante du questionnaire ni d’API de données de marché.
-
-La roadmap affichée dans le site propose les étapes suivantes :
-
-1. **Étude terrain** : questionnaire réel, entretiens et comparaison des prix observés.
-2. **Prototypes des trois modèles** : conception et mesure de la stabilité, de la consommation, du bruit et du séchage.
-3. **Tests utilisateurs** : essais des concepts et amélioration de l’ergonomie.
-4. **Pré-série et devis** : coûts réels, conformité, garantie et SAV.
-5. **Lancement pilote** : choisir un modèle prioritaire selon les résultats avant d’étendre la gamme.
-
-Les évolutions techniques possibles comprennent une collecte réelle des réponses, des données économiques propres à chaque modèle et un audit d’accessibilité. Le chargement différé de la visionneuse et les tests des fichiers GLB sont maintenant intégrés ; les autres pistes restent des travaux futurs.
+L’ambition de NCHAF est de transformer une difficulté domestique identifiée sur le terrain en un produit utile, simple et économiquement viable. Le choix du premier modèle reposera sur la convergence entre **un besoin confirmé, une efficacité mesurée et un prix acceptable**.
